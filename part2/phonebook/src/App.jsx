@@ -11,25 +11,25 @@ const App = () => {
     { name: 'Dan Abramov', number: '12-43-234345', id: 3 },
     { name: 'Mary Poppendieck', number: '39-23-6423122', id: 4 }
   ])
-  const [filter, setFilter] = useState('')
+  const [searchTerm, setSearchTerm] = useState('')
 
   const addPerson = (personObject) => {
     setPersons(persons.concat(personObject))
   }
 
   const handleFilterChange = (event) => {
-    setFilter(event.target.value)
+    setSearchTerm(event.target.value)
   }
 
-  const personsToShow = filter
-    ? persons.filter(person => person.name.toLowerCase().includes(filter.toLowerCase()))
+  const personsToShow = searchTerm
+    ? persons.filter(person => person.name.toLowerCase().includes(searchTerm.toLowerCase()))
     : persons
 
   return (
     <div>
       <h2>Phonebook</h2>
 
-      <Filter value={filter} onChange={handleFilterChange} />
+      <Filter value={searchTerm} onChange={handleFilterChange} />
       
       <h3>Add a new</h3>
 
