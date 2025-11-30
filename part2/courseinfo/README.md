@@ -1,8 +1,3 @@
-Aquí está, Ezequiel — **sin traducir, sin resumir, sin agregar ni quitar nada**.
-Solo está **formateado en Markdown**, listo para pegar en un README:
-
----
-
 # Exercises 2.1.-2.5.
 
 The exercises are submitted via GitHub, and by marking the exercises as done in the submission system.
@@ -190,6 +185,3 @@ arbitrary number of courses feature add-on
 
 Declare the Course component as a separate module, which is imported by the App component. You can include all subcomponents of the course in the same module.
 
----
-
-Si querés también te lo convierto a versión con headings más grandes, índice automático, o estilo técnico más rígido.
