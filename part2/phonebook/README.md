@@ -143,10 +143,6 @@ const App = () => {
 }
 ```
 
-This saves you from having to manually input data into your application for testing out your new functionality.
-
----
-
 ## 2.10: The Phonebook Step 5
 
 If you have implemented your application in a single component, refactor it by extracting suitable parts into new components. Maintain the application's state and all event handlers in the App root component.
@@ -182,3 +178,61 @@ const App = () => {
 **NB:** You might run into problems in this exercise if you define your components "in the wrong place". Now would be a good time to rehearse the chapter *do not define a component in another component* from the last part.
 
 
+Aquí tenés el texto formateado en **Markdown**, Ezequiel. No traduzco, no resumo, no agrego ni quito nada:
+
+---
+
+# Exercise 2.11.
+
+## 2.11: The Phonebook Step 6
+
+We continue with developing the phonebook. Store the initial state of the application in the file **db.json**, which should be placed in the root of the project.
+
+```json
+{
+  "persons":[
+    { 
+      "name": "Arto Hellas", 
+      "number": "040-123456",
+      "id": "1"
+    },
+    { 
+      "name": "Ada Lovelace", 
+      "number": "39-44-5323523",
+      "id": "2"
+    },
+    { 
+      "name": "Dan Abramov", 
+      "number": "12-43-234345",
+      "id": "3"
+    },
+    { 
+      "name": "Mary Poppendieck", 
+      "number": "39-23-6423122",
+      "id": "4"
+    }
+  ]
+}
+```
+
+Start **json-server** on port **3001** and make sure that the server returns the list of people by going to the address:
+
+```
+http://localhost:3001/persons
+```
+
+If you receive the following error message:
+
+```
+events.js:182
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: listen EADDRINUSE 0.0.0.0:3001
+    at Object._errnoException (util.js:1019:11)
+    at _exceptionWithHostPort (util.js:1041:20)
+```
+
+it means that port 3001 is already in use by another application, e.g. in use by an already running json-server. Close the other application, or change the port in case that doesn't work.
+
+Modify the application such that the initial state of the data is fetched from the server using the **axios**-library. Complete the fetching with an **Effect hook**.
