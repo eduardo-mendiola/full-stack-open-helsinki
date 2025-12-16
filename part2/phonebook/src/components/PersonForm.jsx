@@ -1,13 +1,20 @@
 import { useState } from 'react'
 
-const PersonForm = ({ persons, addPerson }) => {
+const PersonForm = ({ persons, addPerson, updatePerson }) => {
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    if (persons.some((person) => person.name === newName)) {
-      alert(`${newName} is already added to phonebook`)
+    const existingPerson = persons.find((person) => person.name === newName)
+    
+    if (existingPerson) {
+      if (window.confirm(`${newName} is already added to phonebook, replace the old number with a new one?`)) {
+        const updatedPerson = { ...existingPerson, number: newNumber }
+        updatePerson(existingPerson.id, updatedPerson)
+        setNewName('')
+        setNewNumber('')
+      }
     } else {
       const personObject = {
         name: newName,
