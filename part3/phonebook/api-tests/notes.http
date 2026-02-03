@@ -9,7 +9,7 @@ Accept: application/application/json
 GET {{baseUrl}}/api/persons/5
 Accept: application/json
 
-### POST - Create a new note (Create)
+### POST - Create a new person (Create)
 POST {{baseUrl}}/api/persons
 Content-Type: application/json
 
