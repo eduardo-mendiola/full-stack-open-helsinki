@@ -8,7 +8,7 @@
     "dev": "node --watch index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build:ui": "rm -rf dist && cd ~/Cursos/Helsinki_University/full-stack-open-submission/part2/phonebook && pnpm run build && cp -r dist ~/Cursos/Helsinki_University/full-stack-open-submission/part3/phonebook",
-    "deploy:full": "pnpm run build:ui && git add . && git commit -m uibuild && git push"
+    "deploy:full": "pnpm run build:ui && cd ~/Cursos/Helsinki_University/full-stack-open-submission &&  git add . && git commit -m uibuild && git push"
   },
   "keywords": [],
   "author": "",
