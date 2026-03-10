@@ -1,7 +1,10 @@
+require('dotenv').config()
 const express = require('express')
 const app = express()
 const morgan = require('morgan')
 const path = require('path')
+const Person = require('./models/person')
+
 
 app.use(express.json())
 //app.use(morgan('tiny'))
@@ -58,8 +61,14 @@ app.get('/info', (request, response) => {
   )
 })
 
+// app.get('/api/persons', (request, response) => {
+//   response.json(data)
+// })
+
 app.get('/api/persons', (request, response) => {
-  response.json(data)
+  Person.find({}).then(people => {
+    response.json(people)
+  })
 })
 
 app.get('/api/persons/:id', (request, response) => {
@@ -80,6 +89,30 @@ app.delete('/api/persons/:id', (request, response) => {
   response.status(204).end()
 })
 
+// app.post('/api/persons', (request, response) => {
+//   const body = request.body
+
+//   if (!body.name || !body.number) {
+//     return response.status(400).json({
+//       error: 'content missing'
+//     })
+//   } else if (data.find(p => p.name === body.name)) {
+//     return response.status(400).json({
+//       error: 'name must be unique' 
+//     })
+//   }
+
+//   const person = {
+//     id: generateId(),
+//     name: body.name,
+//     number: body.number
+//   }
+
+//   data = data.concat(person)
+
+//   response.json(data)
+// })
+
 app.post('/api/persons', (request, response) => {
   const body = request.body
 
@@ -87,22 +120,28 @@ app.post('/api/persons', (request, response) => {
     return response.status(400).json({
       error: 'content missing'
     })
-  } else if (data.find(p => p.name === body.name)) {
-    return response.status(400).json({
-      error: 'name must be unique' 
+  }
+
+  Person.find({ name: body.name }).then(existing => {
+    if (existing.length > 0) {
+      // Si ya existe, respondemos con error
+      return response.status(400).json({
+        error: 'name must be unique'
+      })
+    }
+
+    const person = new Person({
+      name: body.name,
+      number: body.number,
     })
-  }
 
-  const person = {
-    id: generateId(),
-    name: body.name,
-    number: body.number
-  }
-
-  data = data.concat(person)
-
-  response.json(data)
+    person.save().then(savedPerson => {
+      response.json(savedPerson)
+    })
+  })
 })
+
+
 
 const unknownEndPoint = (request, response) => {
   response.status(404).send({ error: 'unknown endpoint' })
@@ -111,7 +150,7 @@ const unknownEndPoint = (request, response) => {
 app.use(unknownEndPoint)
 
 
-const PORT = process.env.PORT || 3001
+const PORT = process.env.PORT
 app.listen(PORT, () => {
   console.log(`Server runnig on port ${PORT}`)
 })
