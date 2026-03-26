@@ -53,12 +53,23 @@ app.get('/', (request, response) => {
   response.send('<h1>Phonebook</h1>')
 })
 
-app.get('/info', (request, response) => {
-  response.send(
-    `<p>Phonebook has info for ${data.length} people</p>
-     <p>${new Date}</p>
-    `
-  )
+// app.get('/info', (request, response) => {
+//   response.send(
+//     `<p>Phonebook has info for ${data.length} people</p>
+//      <p>${new Date}</p>
+//     `
+//   )
+// })
+
+app.get('/info', (request, response, next) => {
+  Person.countDocuments({})
+    .then(count => {
+      response.send(
+        `<p>Phonebook has info for ${count} people</p>
+         <p>${new Date()}</p>`
+      )
+    })
+    .catch(error => next(error))
 })
 
 app.get('/api/persons', (request, response) => {
