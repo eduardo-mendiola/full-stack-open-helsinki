@@ -20,17 +20,46 @@ const App = () => {
       })
   }, [])
 
-  const addPerson = (personObject) => {
-    personService
-      .create(personObject)
-      .then(returnedPerson => {
-        setPersons(persons.concat(returnedPerson))
-        setNotification({ message: `Added ${returnedPerson.name}`, type: 'messageSuccess' })
-        setTimeout(() => {
-          setNotification(null)
-        }, 5000)
-      })
+  
+const addPerson = (personObject) => {
+  const existingPerson = persons.find(
+    p => p.name === personObject.name
+  )
+
+  if (existingPerson) {
+    const confirmUpdate = window.confirm(
+      `${personObject.name} is already added to phonebook, replace the old number with a new one?`
+    )
+
+    if (confirmUpdate) {
+      updatePerson(existingPerson.id, personObject)
+    }
+
+    return
   }
+
+  // si NO existe → POST normal
+  personService
+    .create(personObject)
+    .then(returnedPerson => {
+      setPersons(persons.concat(returnedPerson))
+      setNotification({ message: `Added ${returnedPerson.name}`, type: 'messageSuccess' })
+      setTimeout(() => setNotification(null), 5000)
+    })
+}
+
+
+  // const addPerson = (personObject) => {
+  //   personService
+  //     .create(personObject)
+  //     .then(returnedPerson => {
+  //       setPersons(persons.concat(returnedPerson))
+  //       setNotification({ message: `Added ${returnedPerson.name}`, type: 'messageSuccess' })
+  //       setTimeout(() => {
+  //         setNotification(null)
+  //       }, 5000)
+  //     })
+  // }
 
   // const updatePerson = (id, personObject) => {
   //   personService
