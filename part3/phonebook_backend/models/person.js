@@ -14,8 +14,21 @@ mongoose.connect(url, { family: 4 })
   })
 
 const personSchema = new mongoose.Schema({
-  name: String,
-  number: String,
+  name: {
+    type: String,
+    minLength: 3,
+    required: true
+  },
+  number: {
+    type: String,
+    minLength: 8,
+    validate: {
+      validator: (value) => {
+        return /^\d{2,3}-\d+$/.test(value)
+      },
+      message: 'Phone number must have format: 2-3 digits, dash, then digits (e.g., 09-1234556)'
+    }
+  }
 })
 
 personSchema.set('toJSON', {
