@@ -253,3 +253,10 @@ Generate a new "full stack" version of the application by creating a new product
 Push the latest version to Fly.io/Render and verify that everything works there as well.
 
 NOTE: You shall NOT be deploying the frontend directly at any stage of this part. Only the backend repository is deployed throughout the whole part. The frontend production build is added to the backend repository, and the backend serves it as described in the section Serving static files from the backend.
+
+## Exercise 3.22.
+## 3.22: Lint configuration
+
+Add ESlint to your application and fix all the warnings.
+
+This was the last exercise of this part of the course. It's time to push your code to GitHub and mark all of your finished exercises to the exercise submission system.
