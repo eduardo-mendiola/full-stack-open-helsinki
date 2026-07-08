@@ -1,5 +1,3 @@
-## Link Render: https://full-stack-open-helsinki-1-9bgj.onrender.com/
-
 # Exercises 3.1.-3.6.
 ## 3.1: Phonebook backend step 1
 Implement a Node application that returns a hardcoded list of phonebook entries from the address http://localhost:3001/api/persons.
